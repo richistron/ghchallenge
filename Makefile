@@ -5,7 +5,7 @@ build: clean
 	NODE_ENV=production yarn build
 
 install:
-	yarn isntall
+	yarn install
 
 test:
 	CI=true yarn test
