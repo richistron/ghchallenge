@@ -10,6 +10,7 @@ install:
 	yarn install
 
 test:
+	yarn pretty-check
 	CI=true yarn test
 
 pack: build
