@@ -12,3 +12,6 @@ test:
 
 pack: build
 	docker build -t ghchallenge .
+	docker tag ghchallenge docker.pkg.github.com/richistron/ghchallenge/nginx:$(shell node version.js)
+	docker login docker.pkg.github.com --username richistron -p $(DOCKER_LOGIN)
+	docker push docker.pkg.github.com/richistron/ghchallenge/nginx:$(shell node version.js)

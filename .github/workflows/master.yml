@@ -18,6 +18,6 @@ jobs:
       run: |
         make install
         make test
-        make pack
+        make pack DOCKER_LOGIN=${{ secrets.DOCKER_LOGIN }}
       env:
         CI: true
