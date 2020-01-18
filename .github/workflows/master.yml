@@ -16,6 +16,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: Tests and Docker packaging
       run: |
+        make install
         make test
         make pack
       env:

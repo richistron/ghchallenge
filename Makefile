@@ -1,13 +1,13 @@
 clean:
 	rm -rf build
 
-build: clean install
+build: clean
 	NODE_ENV=production yarn build
 
 install:
 	yarn isntall
 
-test: install
+test:
 	CI=true yarn test
 
 pack: build
