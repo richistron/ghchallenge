@@ -16,7 +16,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: Tests and Docker packaging
       run: |
-        yarn install
-        yarn test
+        make test
+        make pack
       env:
         CI: true
