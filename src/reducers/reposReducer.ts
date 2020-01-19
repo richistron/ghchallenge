@@ -5,24 +5,6 @@ export interface IRepo {
   id: number;
   owner: {
     avatar_url: string;
-    // TODO, uncomment if needed
-    // login: string,
-    // id: number,
-    // node_id: string,
-    // gravatar_id: string,
-    // url: string,
-    // html_url: string,
-    // followers_url: string,
-    // following_url: string,
-    // gists_url: string,
-    // starred_url: string,
-    // subscriptions_url: string,
-    // organizations_url: string,
-    // repos_url: string,
-    // events_url: string,
-    // received_events_url: string,
-    // type: string,
-    // site_admin: boolean,
   };
 }
 
@@ -31,17 +13,21 @@ export interface IReposReducer {
   error: null | string;
   isLoading: boolean;
   username: string;
+  favorites: { [key: string]: number };
 }
 
 export type ReposAction =
   | RepoSagaActions
-  | { type: 'SET_USER'; username: string };
+  | { type: 'SET_USER'; username: string }
+  | { type: 'REMOVE_FROM_FAVORITES'; id: number }
+  | { type: 'ADD_TO_FAVORITES'; id: number };
 
 const initialState: IReposReducer = {
   username: '',
   repos: {},
   isLoading: false,
-  error: null
+  error: null,
+  favorites: {}
 };
 
 function addRepos(
@@ -50,6 +36,24 @@ function addRepos(
 ) {
   const newState = { ...repos };
   newState[action.username] = action.repos;
+  return newState;
+}
+
+function addToFavorites(
+  favorites: { [p: string]: number },
+  action: { type: 'ADD_TO_FAVORITES'; id: number }
+) {
+  const newState = { ...favorites };
+  newState[String(action.id)] = action.id;
+  return newState;
+}
+
+function removeToFavorites(
+  favorites: { [p: string]: number },
+  action: { type: 'REMOVE_FROM_FAVORITES'; id: number }
+) {
+  const newState = { ...favorites };
+  delete newState[String(action.id)];
   return newState;
 }
 
@@ -91,6 +95,18 @@ const reposReducer = (
       return {
         ...state,
         username: action.username
+      };
+
+    case 'ADD_TO_FAVORITES':
+      return {
+        ...state,
+        favorites: addToFavorites(state.favorites, action)
+      };
+
+    case 'REMOVE_FROM_FAVORITES':
+      return {
+        ...state,
+        favorites: removeToFavorites(state.favorites, action)
       };
 
     default:

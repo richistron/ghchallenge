@@ -1,19 +1,30 @@
-import React, { useState } from 'react';
-import { IRepo } from '../../reducers/reposReducer';
+import React from 'react';
+import FavButtonController, {
+  FavButtonOwnProps,
+  FavButtonDispatchProps,
+  FavButtonStateProps
+} from './FavButtonController';
 
-const FavButton: React.FC<{ repo: IRepo }> = () => {
-  const [fav, setFav] = useState<boolean>(false);
+const FavButton: React.FC<FavButtonOwnProps &
+  FavButtonDispatchProps &
+  FavButtonStateProps> = ({ removeFav, fav, addFav, repo }) => {
   const className = fav ? 'unfav' : 'fav';
   return (
     <span
       className={className}
       aria-label={className}
       role={'img'}
-      onClick={() => setFav(!fav)}
+      onClick={() => {
+        if (fav) {
+          removeFav(repo.id);
+        } else {
+          addFav(repo.id);
+        }
+      }}
     >
       ⭐
     </span>
   );
 };
 
-export default FavButton;
+export default FavButtonController(FavButton);
