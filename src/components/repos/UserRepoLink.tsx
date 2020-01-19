@@ -1,10 +1,10 @@
 import React from 'react';
-import './UserRepoList.scss';
 import UserRepoListController, {
   IUserRepoListStateProps,
   IUserRepoListOwnProps
 } from './UserRepoListController';
 import { Link } from 'react-router-dom';
+import './UserRepoList.scss';
 
 const UserRepoLink: React.FC<IUserRepoListOwnProps &
   IUserRepoListStateProps> = ({ username, repos }) => {
@@ -21,9 +21,7 @@ const UserRepoLink: React.FC<IUserRepoListOwnProps &
             src={repo.owner.avatar_url}
             alt={repo.name}
           />
-        </div>
-        <div className={'col'}>
-          <h6>{username}</h6>
+          {username}
         </div>
       </div>
     </Link>

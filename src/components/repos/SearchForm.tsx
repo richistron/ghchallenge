@@ -1,19 +1,20 @@
-import React, { ChangeEvent, SyntheticEvent, useState } from 'react';
+import React, { ChangeEvent, SyntheticEvent } from 'react';
 import SearchFormController, {
   ISearchFormProps,
   ISearchFormStateProps
 } from './SearchFormController';
 import FormError from './FormError';
-import UserRepoLink from '../repos/UserRepoLink';
+import UserRepoLink from './UserRepoLink';
 
 const SearchForm: React.FC<ISearchFormProps & ISearchFormStateProps> = ({
   loadUser,
   isLoading,
-  error
+  setUser,
+  error,
+  username
 }) => {
-  const [username, setUsername] = useState<string>('');
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setUsername(e.target.value);
+    setUser(e.target.value);
   };
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
@@ -26,6 +27,7 @@ const SearchForm: React.FC<ISearchFormProps & ISearchFormStateProps> = ({
         <div className="form-group">
           <label>Username</label>
           <input
+            defaultValue={username}
             type="text"
             className="form-control"
             placeholder="Github username"

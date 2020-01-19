@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import { IRepo } from '../reducers/reposReducer';
-import { IState } from '../reducers/store';
+import { IRepo } from '../../reducers/reposReducer';
+import { IState } from '../../store';
 
 export interface IUserRepoListOwnProps {
   username: string;

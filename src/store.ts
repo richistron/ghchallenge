@@ -1,8 +1,8 @@
 import { applyMiddleware, combineReducers, createStore, compose } from 'redux';
 import persistState from 'redux-localstorage';
-import reposReducer, { IReposReducer } from './reposReducer';
+import reposReducer, { IReposReducer } from './reducers/reposReducer';
 import createSagaMiddleware from 'redux-saga';
-import reposSaga from './reposSaga';
+import reposSaga from './sagas/fetchUserSaga';
 
 export interface IState {
   repos: IReposReducer;

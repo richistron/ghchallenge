@@ -1,3 +1,5 @@
+import { RepoSagaActions } from '../sagas/fetchUserSaga';
+
 export interface IRepo {
   name: string;
   id: number;
@@ -28,15 +30,15 @@ export interface IReposReducer {
   repos: { [key: string]: IRepo[] };
   error: null | string;
   isLoading: boolean;
+  username: string;
 }
 
 export type ReposAction =
-  | { type: 'LOAD_USER'; username: string }
-  | { type: 'LOAD_USER_SUCCESS'; username: string; repos: IRepo[] }
-  | { type: 'LOAD_USER_ERROR'; username: string; error: string };
+  | RepoSagaActions
+  | { type: 'SET_USER'; username: string };
 
-export type resetSearchAction = { type: 'RESET_SEARCH' };
 const initialState: IReposReducer = {
+  username: '',
   repos: {},
   isLoading: false,
   error: null
@@ -53,7 +55,7 @@ function addRepos(
 
 const reposReducer = (
   state?: IReposReducer,
-  action?: ReposAction | resetSearchAction
+  action?: ReposAction
 ): IReposReducer => {
   if (!state) {
     return { ...initialState };
@@ -85,9 +87,10 @@ const reposReducer = (
         error: null
       };
 
-    case 'RESET_SEARCH':
+    case 'SET_USER':
       return {
-        ...initialState
+        ...state,
+        username: action.username
       };
 
     default:

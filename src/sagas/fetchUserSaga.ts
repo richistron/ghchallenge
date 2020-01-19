@@ -1,7 +1,12 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { ReposAction } from './reposReducer';
+import { IRepo } from '../reducers/reposReducer';
 
-function* fetchUser(action: ReposAction) {
+export type RepoSagaActions =
+  | { type: 'LOAD_USER'; username: string }
+  | { type: 'LOAD_USER_SUCCESS'; username: string; repos: IRepo[] }
+  | { type: 'LOAD_USER_ERROR'; username: string; error: string };
+
+function* fetchUser(action: RepoSagaActions) {
   try {
     const repos = yield call(async username => {
       const res = await fetch(
@@ -26,8 +31,8 @@ function* fetchUser(action: ReposAction) {
   }
 }
 
-function* reposSaga() {
+function* fetchUserSaga() {
   yield takeLatest('LOAD_USER', fetchUser);
 }
 
-export default reposSaga;
+export default fetchUserSaga;
