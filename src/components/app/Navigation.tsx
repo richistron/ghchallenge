@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
 
-const Navigation: React.FC<RouteComponentProps> = props => {
+const Navigation: React.FC<RouteComponentProps | any> = props => {
   function isActive(s: string): string {
     return s === props.location.pathname ? 'active' : '';
   }
@@ -24,5 +24,7 @@ const Navigation: React.FC<RouteComponentProps> = props => {
     </ul>
   );
 };
+
+export const NavigationTest = Navigation;
 
 export default withRouter(Navigation);

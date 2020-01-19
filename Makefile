@@ -9,8 +9,10 @@ build: clean
 install:
 	yarn install
 
-test:
+codestyle:
 	yarn pretty-check
+
+test:
 	CI=true yarn test
 
 pack: build

@@ -17,6 +17,7 @@ jobs:
     - name: Tests and Docker packaging
       run: |
         make install
+        make codestyle
         make test
         make pack DOCKER_LOGIN=${{ secrets.DOCKER_LOGIN }}
       env:

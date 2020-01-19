@@ -1,17 +1,13 @@
-import { applyMiddleware, combineReducers, createStore, compose } from 'redux';
+import { applyMiddleware, createStore, compose } from 'redux';
 import persistState from 'redux-localstorage';
 import createSagaMiddleware from 'redux-saga';
 import reposSaga from './sagas/fetchUserSaga';
 import { IReposReducer } from './reducers/repos/initialState';
-import reposReducer from './reducers/repos/reposReducer';
+import rootReducer from './reducers/rootReducer';
 
 export interface IState {
   repos: IReposReducer;
 }
-
-const rootReducer = combineReducers({
-  repos: reposReducer
-});
 
 const w: any = window;
 const isProd = process.env.NODE_ENV === 'production';
@@ -23,7 +19,9 @@ const store = createStore(
   compose(
     applyMiddleware(sagaMiddleware),
     persistState(),
-    isProd ? undefined : w.__REDUX_DEVTOOLS_EXTENSION__ && w.__REDUX_DEVTOOLS_EXTENSION__()
+    isProd
+      ? undefined
+      : w.__REDUX_DEVTOOLS_EXTENSION__ && w.__REDUX_DEVTOOLS_EXTENSION__()
   )
 );
 
