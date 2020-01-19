@@ -1,4 +1,5 @@
 import { applyMiddleware, combineReducers, createStore, compose } from 'redux';
+import persistState from 'redux-localstorage';
 import reposReducer, { IReposReducer } from './reposReducer';
 import createSagaMiddleware from 'redux-saga';
 import reposSaga from './reposSaga';
@@ -19,7 +20,8 @@ const store = createStore(
   rootReducer,
   compose(
     applyMiddleware(sagaMiddleware),
-    w.__REDUX_DEVTOOLS_EXTENSION__ && w.__REDUX_DEVTOOLS_EXTENSION__()
+    w.__REDUX_DEVTOOLS_EXTENSION__ && w.__REDUX_DEVTOOLS_EXTENSION__(),
+    persistState()
   )
 );
 
