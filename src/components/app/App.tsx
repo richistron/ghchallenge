@@ -2,15 +2,17 @@ import React from 'react';
 import { HashRouter } from 'react-router-dom';
 import './App.scss';
 import Routes from './Routes';
+import Navigation from './Navigation';
 
 const App: React.FC = () => {
   return (
-    <div className="application">
-      <HashRouter>
+    <HashRouter>
+      <div className="application">
         <h4>Github API Challenge</h4>
+        <Navigation />
         <Routes />
-      </HashRouter>
-    </div>
+      </div>
+    </HashRouter>
   );
 };
 

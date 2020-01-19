@@ -3,7 +3,6 @@ import UserRepoListController, {
   IUserRepoListStateProps,
   IUserRepoListOwnProps
 } from './UserRepoListController';
-import './UserRepoList.scss';
 import FavButton from './FavButton';
 
 const UserRepoList: React.FC<IUserRepoListOwnProps &

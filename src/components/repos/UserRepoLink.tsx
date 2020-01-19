@@ -4,7 +4,6 @@ import UserRepoListController, {
   IUserRepoListOwnProps
 } from './UserRepoListController';
 import { Link } from 'react-router-dom';
-import './UserRepoList.scss';
 
 const UserRepoLink: React.FC<IUserRepoListOwnProps &
   IUserRepoListStateProps> = ({ username, repos }) => {
