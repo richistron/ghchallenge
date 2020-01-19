@@ -1,12 +1,22 @@
 import React from 'react';
 import FavButton from './FavButton';
 import FavoritesController, {
-  IFavoritesStateProps
+  IFavoritesStateProps,
+  IFavoritesDispatchProps
 } from './FavoritesController';
+import FilterFavorites from './FilterFavorites';
 
-const Favorites: React.FC<IFavoritesStateProps> = ({ repos }) => {
+const Favorites: React.FC<IFavoritesStateProps & IFavoritesDispatchProps> = ({
+  repos,
+  setFilter,
+  favFilter
+}) => {
   return (
     <div className={'Favorites row'}>
+      <div className={'col'}>
+        <FilterFavorites setFilter={setFilter} favFilter={favFilter} />
+      </div>
+      <div className={'w-100'} />
       <div className={'col'}>
         <ul className="list-group">
           {repos.map(repo => (

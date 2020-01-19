@@ -3,6 +3,7 @@ import { RepoSagaActions } from '../sagas/fetchUserSaga';
 export interface IRepo {
   name: string;
   id: number;
+  full_name: string;
   owner: {
     avatar_url: string;
   };
@@ -14,12 +15,14 @@ export interface IReposReducer {
   isLoading: boolean;
   username: string;
   favorites: { [key: string]: number };
+  favFilter: string;
 }
 
 export type ReposAction =
   | RepoSagaActions
   | { type: 'SET_USER'; username: string }
   | { type: 'REMOVE_FROM_FAVORITES'; id: number }
+  | { type: 'FILTER_FAVORITES'; favFilter: string }
   | { type: 'ADD_TO_FAVORITES'; id: number };
 
 const initialState: IReposReducer = {
@@ -27,7 +30,8 @@ const initialState: IReposReducer = {
   repos: {},
   isLoading: false,
   error: null,
-  favorites: {}
+  favorites: {},
+  favFilter: ''
 };
 
 function addRepos(
@@ -107,6 +111,12 @@ const reposReducer = (
       return {
         ...state,
         favorites: removeToFavorites(state.favorites, action)
+      };
+
+    case 'FILTER_FAVORITES':
+      return {
+        ...state,
+        favFilter: action.favFilter
       };
 
     default:
