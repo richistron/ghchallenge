@@ -6,8 +6,19 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import rootReducer from '../../reducers/rootReducer';
 
-export function renderWithRedux(ui: any) {
-  const store = createStore(rootReducer);
+export function renderWithRedux(ui: any, state = {}) {
+  const preloadedState = {
+    repos: {
+      username: '',
+      repos: {},
+      isLoading: false,
+      error: null,
+      favorites: {},
+      favFilter: ''
+    }
+  };
+
+  const store = createStore(rootReducer, { ...preloadedState, ...state });
   return {
     ...render(
       <Provider store={store}>
