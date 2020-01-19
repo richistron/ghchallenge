@@ -4,7 +4,7 @@ import SearchFormController, {
   ISearchFormStateProps
 } from './SearchFormController';
 import FormError from './FormError';
-import UserRepoList from '../repos/UserRepoList';
+import UserRepoLink from '../repos/UserRepoLink';
 
 const SearchForm: React.FC<ISearchFormProps & ISearchFormStateProps> = ({
   loadUser,
@@ -36,7 +36,7 @@ const SearchForm: React.FC<ISearchFormProps & ISearchFormStateProps> = ({
           {isLoading ? 'Loading...' : 'Search'}
         </button>
       </form>
-      <UserRepoList username={username} />
+      <UserRepoLink username={username} />
     </>
   );
 };
