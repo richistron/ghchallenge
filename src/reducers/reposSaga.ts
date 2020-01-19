@@ -16,9 +16,13 @@ function* fetchUser(action: ReposAction) {
         return await res.json();
       }
     }, action.username);
-    yield put({ type: 'LOAD_USER_SUCCESS', repos });
+    yield put({ type: 'LOAD_USER_SUCCESS', repos, username: action.username });
   } catch (e) {
-    yield put({ type: 'LOAD_USER_ERROR', error: e.message });
+    yield put({
+      type: 'LOAD_USER_ERROR',
+      error: e.message,
+      username: action.username
+    });
   }
 }
 

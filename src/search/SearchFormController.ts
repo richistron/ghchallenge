@@ -1,12 +1,11 @@
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { IRepo, ReposAction, resetSearchAction } from '../reducers/reposReducer';
+import { ReposAction, resetSearchAction } from '../reducers/reposReducer';
 import { IState } from '../reducers/store';
 
 export interface ISearchFormStateProps {
   isLoading: boolean;
   error: string;
-  repos: IRepo[];
 }
 export interface ISearchFormProps {
   loadUser: (username: string) => void;
@@ -15,8 +14,7 @@ export interface ISearchFormProps {
 
 const mapStateToProps = (state: IState): ISearchFormStateProps => ({
   isLoading: state.repos.isLoading,
-  error: state.repos.error || '',
-  repos: state.repos.repos
+  error: state.repos.error || ''
 });
 
 const mapDispatchToProps = (

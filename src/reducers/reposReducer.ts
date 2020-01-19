@@ -4,7 +4,7 @@ export interface IRepo {
 }
 
 export interface IReposReducer {
-  repos: IRepo[];
+  repos: { [key: string]: IRepo[] };
   error: null | string;
   isLoading: boolean;
 }
@@ -14,12 +14,21 @@ export type ReposAction =
   | { type: 'LOAD_USER_SUCCESS'; username: string; repos: IRepo[] }
   | { type: 'LOAD_USER_ERROR'; username: string; error: string };
 
-export type resetSearchAction = {type: 'RESET_SEARCH'};
+export type resetSearchAction = { type: 'RESET_SEARCH' };
 const initialState: IReposReducer = {
-  repos: [],
+  repos: {},
   isLoading: false,
   error: null
 };
+
+function addRepos(
+  repos: { [p: string]: IRepo[] },
+  action: { type: 'LOAD_USER_SUCCESS'; username: string; repos: IRepo[] }
+) {
+  const newState = { ...repos };
+  newState[action.username] = action.repos;
+  return newState;
+}
 
 const reposReducer = (
   state?: IReposReducer,
@@ -50,14 +59,14 @@ const reposReducer = (
     case 'LOAD_USER_SUCCESS':
       return {
         ...state,
-        repos: action.repos,
+        repos: addRepos(state.repos, action),
         isLoading: false,
         error: null
       };
 
     case 'RESET_SEARCH':
       return {
-        ...initialState,
+        ...initialState
       };
 
     default:
