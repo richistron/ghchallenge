@@ -11,18 +11,17 @@ export interface IState {
 
 const w: any = window;
 const isProd = process.env.NODE_ENV === 'production';
-
 const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(
   rootReducer,
-  compose(
-    applyMiddleware(sagaMiddleware),
-    persistState(),
-    isProd
-      ? undefined
-      : w.__REDUX_DEVTOOLS_EXTENSION__ && w.__REDUX_DEVTOOLS_EXTENSION__()
-  )
+  !isProd && w.__REDUX_DEVTOOLS_EXTENSION__
+    ? compose(
+        applyMiddleware(sagaMiddleware),
+        persistState(),
+        w.__REDUX_DEVTOOLS_EXTENSION__()
+      )
+    : compose(applyMiddleware(sagaMiddleware), persistState())
 );
 
 sagaMiddleware.run(reposSaga);
