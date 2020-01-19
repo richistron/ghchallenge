@@ -1,5 +1,5 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { IRepo } from '../reducers/reposReducer';
+import { IRepo } from '../reducers/repos/initialState';
 
 export type RepoSagaActions =
   | { type: 'LOAD_USER'; username: string }

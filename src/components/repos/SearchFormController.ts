@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { ReposAction } from '../../reducers/reposReducer';
 import { IState } from '../../store';
+import { ReposAction } from '../../reducers/repos/initialState';
 
 export interface ISearchFormStateProps {
   isLoading: boolean;

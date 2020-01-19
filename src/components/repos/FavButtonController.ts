@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
-import { IRepo, ReposAction } from '../../reducers/reposReducer';
 import { IState } from '../../store';
 import { Dispatch } from 'redux';
+import { IRepo, ReposAction } from '../../reducers/repos/initialState';
 
 export interface FavButtonOwnProps {
   repo: IRepo;
